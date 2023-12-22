@@ -93,3 +93,25 @@ clean-all: clean
 # FORCE is a helper target to force a file to be rebuilt whenever its
 # target is invoked.
 FORCE:
+
+
+
+### Helm push to ECR steps
+
+CH_DIR = deploy/charts
+DIR = cert-manager
+VERSION = ${TAG}
+PACKAGED_CHART = ${DIR}-${VERSION}.tgz
+
+
+push-chart:
+	@echo "=== Helm login ==="
+	aws ecr get-login-password --region ${AWS_DEFAULT_REGION} | helm registry login ${ECR_HOST} --username AWS --password-stdin --debug
+	@echo "=== save chart ==="
+	helm chart save ${CH_DIR}/${DIR}/ ${ECR_HOST}/dataos-base-charts:${DIR}-${VERSION}
+	@echo
+	@echo "=== push chart ==="
+	helm chart push ${ECR_HOST}/dataos-base-charts:${DIR}-${VERSION}
+	@echo
+	@echo "=== logout of registry ==="
+	helm registry logout ${ECR_HOST}
