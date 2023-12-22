@@ -39,6 +39,9 @@ jobs:
       uses: aws-actions/amazon-ecr-login@v1
       with:
         mask-password: true
+        
+    - name: Install Go
+      uses: actions/setup-go@v4
       
     - name: Package and push Helm chart
       env:
