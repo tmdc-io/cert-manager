@@ -37,6 +37,9 @@ jobs:
     - name: Login to Amazon ECR
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
+
+    - name: Configure Git safe directory
+      run: git config --global --add safe.directory /__w/cert-manager/cert-manager
       
     - name: Package and push Helm chart
       env:
