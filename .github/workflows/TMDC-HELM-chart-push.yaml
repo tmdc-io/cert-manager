@@ -40,6 +40,9 @@ jobs:
 
     - name: Configure Git safe directory
       run: git config --global --add safe.directory /__w/cert-manager/cert-manager
+
+    - name: Install rsync
+      run: sudo apt-get update && sudo apt-get install -y rsync
       
     - name: Package and push Helm chart
       env:
