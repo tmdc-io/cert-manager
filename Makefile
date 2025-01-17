@@ -149,4 +149,4 @@ push-oci-chart:
 	helm3.16.4 push ${PACKAGED_CHART} oci://$(ECR_HOST)
 	@echo
 	@echo "=== logout of registry ==="
-	helm3.16.4 registry logout $(ECR_HOST)%
+	helm3.16.4 registry logout $(ECR_HOST)
