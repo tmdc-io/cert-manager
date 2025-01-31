@@ -32,6 +32,10 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
     spec:
+      {{- with .Values.global.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       restartPolicy: OnFailure
       serviceAccountName: {{ template "startupapicheck.serviceAccountName" . }}
       {{- if hasKey .Values.startupapicheck "automountServiceAccountToken" }}
