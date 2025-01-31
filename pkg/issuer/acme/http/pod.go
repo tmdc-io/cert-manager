@@ -185,16 +185,15 @@ func (s *Solver) buildDefaultPod(ch *cmacme.Challenge) *corev1.Pod {
 			OwnerReferences: []metav1.OwnerReference{*metav1.NewControllerRef(ch, challengeGvk)},
 		},
 		Spec: corev1.PodSpec{
-			// The HTTP01 solver process does not need access to the
-			// Kubernetes API server, so we turn off automounting of
-			// the Kubernetes ServiceAccount token.
-			// See https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/#opt-out-of-api-credential-automounting
 			AutomountServiceAccountToken: ptr.To(false),
 			NodeSelector: map[string]string{
 				"kubernetes.io/os": "linux",
 			},
 			RestartPolicy:      corev1.RestartPolicyOnFailure,
 			EnableServiceLinks: ptr.To(false),
+			ImagePullSecrets: []corev1.LocalObjectReference{
+				{Name: s.ACMEOptions.ImagePullSecrets},
+			},
 			SecurityContext: &corev1.PodSecurityContext{
 				RunAsNonRoot: ptr.To(s.ACMEOptions.ACMEHTTP01SolverRunAsNonRoot),
 				SeccompProfile: &corev1.SeccompProfile{
@@ -206,7 +205,6 @@ func (s *Solver) buildDefaultPod(ch *cmacme.Challenge) *corev1.Pod {
 					Name:            "acmesolver",
 					Image:           s.ACMEOptions.HTTP01SolverImage,
 					ImagePullPolicy: corev1.PullIfNotPresent,
-					// TODO: replace this with some kind of cmdline generator
 					Args: []string{
 						fmt.Sprintf("--listen-port=%d", acmeSolverListenPort),
 						fmt.Sprintf("--domain=%s", ch.Spec.DNSName),

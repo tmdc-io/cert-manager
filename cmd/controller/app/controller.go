@@ -332,6 +332,7 @@ func buildControllerContextFactory(ctx context.Context, opts *config.ControllerC
 			HTTP01SolverResourceLimitsMemory:  http01SolverResourceLimitsMemory,
 			ACMEHTTP01SolverRunAsNonRoot:      ACMEHTTP01SolverRunAsNonRoot,
 			HTTP01SolverImage:                 opts.ACMEHTTP01Config.SolverImage,
+			ImagePullSecrets:                  opts.ACMEHTTP01Config.SolverImagePullSecrets,
 			// Allows specifying a list of custom nameservers to perform HTTP01 checks on.
 			HTTP01SolverNameservers: opts.ACMEHTTP01Config.SolverNameservers,
 

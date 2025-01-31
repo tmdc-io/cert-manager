@@ -1,6 +1,7 @@
 {{- $registry := .Values.acmesolver.image.registry | default "" -}}
 {{- $repository := .Values.acmesolver.image.repository -}}
 {{- $tag := .Values.acmesolver.image.tag | default $.Chart.AppVersion -}}
+{{- $imagepullsecrets := .Values.global.imagePullSecrets -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -116,6 +117,7 @@ spec:
           {{- end }}
           {{- with .Values.acmesolver.image }}
           - --acme-http01-solver-image={{- if $registry -}}{{ $registry }}/{{- end -}}{{ $repository }}:{{ $tag }}
+          - --acme-http01-solver-image-secrets={{- if $imagepullsecrets -}}
           {{- end }}
           {{- with .Values.extraArgs }}
           {{- toYaml . | nindent 10 }}

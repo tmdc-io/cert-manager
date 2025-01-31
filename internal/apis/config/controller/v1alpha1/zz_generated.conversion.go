@@ -126,6 +126,7 @@ func Convert_controller_ACMEDNS01Config_To_v1alpha1_ACMEDNS01Config(in *controll
 
 func autoConvert_v1alpha1_ACMEHTTP01Config_To_controller_ACMEHTTP01Config(in *v1alpha1.ACMEHTTP01Config, out *controller.ACMEHTTP01Config, s conversion.Scope) error {
 	out.SolverImage = in.SolverImage
+	out.SolverImagePullSecrets = in.SolverImagePullSecrets
 	out.SolverResourceRequestCPU = in.SolverResourceRequestCPU
 	out.SolverResourceRequestMemory = in.SolverResourceRequestMemory
 	out.SolverResourceLimitsCPU = in.SolverResourceLimitsCPU
@@ -144,6 +145,7 @@ func Convert_v1alpha1_ACMEHTTP01Config_To_controller_ACMEHTTP01Config(in *v1alph
 
 func autoConvert_controller_ACMEHTTP01Config_To_v1alpha1_ACMEHTTP01Config(in *controller.ACMEHTTP01Config, out *v1alpha1.ACMEHTTP01Config, s conversion.Scope) error {
 	out.SolverImage = in.SolverImage
+	out.SolverImagePullSecrets = in.SolverImagePullSecrets
 	out.SolverResourceRequestCPU = in.SolverResourceRequestCPU
 	out.SolverResourceRequestMemory = in.SolverResourceRequestMemory
 	out.SolverResourceLimitsCPU = in.SolverResourceLimitsCPU

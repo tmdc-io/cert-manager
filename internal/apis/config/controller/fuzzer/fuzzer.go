@@ -95,6 +95,10 @@ var Funcs = func(codecs runtimeserializer.CodecFactory) []interface{} {
 				s.ACMEHTTP01Config.SolverImage = "test-roundtrip"
 			}
 
+			if s.ACMEHTTP01Config.SolverImagePullSecrets == "" {
+				s.ACMEHTTP01Config.SolverImagePullSecrets = "docker-secret"
+			}
+
 			if s.ACMEHTTP01Config.SolverResourceRequestCPU == "" {
 				s.ACMEHTTP01Config.SolverResourceRequestCPU = "test-roundtrip"
 			}

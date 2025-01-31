@@ -166,7 +166,8 @@ type ACMEHTTP01Config struct {
 	// The Docker image to use to solve ACME HTTP01 challenges. You most likely
 	// will not need to change this parameter unless you are testing a new
 	// feature or developing cert-manager.
-	SolverImage string
+	SolverImage            string
+	SolverImagePullSecrets string
 
 	// Defines the resource request CPU size when spawning new ACME HTTP01
 	// challenge solver pods.

@@ -107,6 +107,10 @@ func AddConfigFlags(fs *pflag.FlagSet, c *config.ControllerConfiguration) {
 		"The docker image to use to solve ACME HTTP01 challenges. You most likely will not "+
 		"need to change this parameter unless you are testing a new feature or developing cert-manager.")
 
+	fs.StringVar(&c.ACMEHTTP01Config.SolverImagePullSecrets, "acme-http01-solver-image-secrets", c.ACMEHTTP01Config.SolverImagePullSecrets, ""+
+		"The docker image secrets to use to solve ACME HTTP01 challenges. You most likely will not "+
+		"need to change this parameter unless you are testing a new feature or developing cert-manager.")
+
 	// HTTP-01 solver pod configuration via flags is a now deprecated
 	// mechanism - please use pod template instead when adding any new
 	// configuration options
