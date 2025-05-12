@@ -1,6 +1,3 @@
-{{- $registry := .Values.acmesolver.image.registry | default "" -}}
-{{- $repository := .Values.acmesolver.image.repository -}}
-{{- $tag := .Values.acmesolver.image.tag | default $.Chart.AppVersion -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -115,7 +112,7 @@ spec:
           {{- end }}
           {{- end }}
           {{- with .Values.acmesolver.image }}
-          - --acme-http01-solver-image={{- if $registry -}}{{ $registry }}/{{- end -}}{{ $repository }}:{{ $tag }}
+          - --acme-http01-solver-image={{- if .registry -}}{{ .registry }}/{{- end -}}{{ .repository }}{{- if (.digest) -}} @{{ .digest }}{{- else -}}:{{ default $.Chart.AppVersion .tag }} {{- end -}}
           {{- end }}
           {{- with .Values.extraArgs }}
           {{- toYaml . | nindent 10 }}
