@@ -42,19 +42,13 @@ spec:
         operator: In
         values:
         - {{ .Release.Name }}
-      - key: app.kubernetes.io/component
-        operator: In
-        values:
-        - cainjector
-        - controller
-        - webhook
 {{- if .Values.prometheus.servicemonitor.namespace }}
   namespaceSelector:
     matchNames:
       - {{ include "cert-manager.namespace" . }}
 {{- end }}
   endpoints:
-  - targetPort: {{ .Values.prometheus.servicemonitor.targetPort }}
+  - port: {{ .Values.prometheus.servicemonitor.targetPort }}
     path: {{ .Values.prometheus.servicemonitor.path }}
     {{- if .Values.prometheus.servicemonitor.interval }}
     interval: {{ .Values.prometheus.servicemonitor.interval }}
